@@ -37,8 +37,14 @@ public class DashBoard extends JFrame implements ActionListener {
     DashBoard(){
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1800,1000);
+        //this.setSize(1800,1000);
+        this.setSize(1500,1000);
         this.setLayout(null);
+        this.setResizable(false);
+
+        JPanel footer =  new JPanel();
+        footer.setBounds(300,900,1200,100);
+        footer.setBackground(new Color(0x65658C));
 
         refreshKnop = new JButton();
         refreshKnop.addActionListener(this);
@@ -56,7 +62,7 @@ public class DashBoard extends JFrame implements ActionListener {
         menuField.setBackground(new Color(0xFF373770, true));
 
         buttons = new JPanel();
-        buttons.setBounds(0,400,300,500);
+        buttons.setBounds(0,600,300,300);
         buttons.setLayout(new GridLayout(5,1));
         buttons.setBackground(new Color(0xFF373770));
 
@@ -70,11 +76,16 @@ public class DashBoard extends JFrame implements ActionListener {
         DesignInfoboxPanel();
         RefreshPanel = new JPanel();
         RefreshPanel.setBackground(new Color(0x65658C));
-        RefreshPanel.setBounds(300,0,1500,50);
+        RefreshPanel.setBounds(300,0,1200,50);
         RefreshPanel.add(refreshKnop);
+
+        //server design pattern
+
+
 
 
         this.add(buttons);
+        this.add(footer);
         this.add(RefreshPanel);
         this.add(InfoBoxDashboard);
         this.add(logoLabel);
@@ -86,9 +97,10 @@ public class DashBoard extends JFrame implements ActionListener {
     private void DesignInfoboxPanel() {
 
         InfoBoxDashboard = new JPanel();
-        InfoBoxDashboard.setBounds(300,50,1500,1000);
+        InfoBoxDashboard.setBounds(300,50,1200,900);
         InfoBoxDashboard.setBackground(new Color(0x65658C));
-        InfoBoxDashboard.setLayout(new GridLayout(2,2,80,80));
+        InfoBoxDashboard.setLayout(new GridLayout(2,2,10,10));
+
 
         InfoBox1 = new JPanel();InfoBox2 = new JPanel();InfoBox3 = new JPanel();InfoBox4 = new JPanel();
 
@@ -102,8 +114,10 @@ public class DashBoard extends JFrame implements ActionListener {
 
         DesignInfobox();
 
-        InfoBoxDashboard.add(InfoBox1);InfoBoxDashboard.add(InfoBox2);
-        InfoBoxDashboard.add(InfoBox3);InfoBoxDashboard.add(InfoBox4);
+        InfoBoxDashboard.add(InfoBox1);
+        InfoBoxDashboard.add(InfoBox2);
+        InfoBoxDashboard.add(InfoBox3);
+        InfoBoxDashboard.add(InfoBox4);
     }
 
     private void DesignInfobox() {
@@ -192,8 +206,8 @@ public class DashBoard extends JFrame implements ActionListener {
         Percentage1.setFont(new Font("Consolas", Font.BOLD,100));Percentage2.setFont(new Font("Consolas", Font.BOLD,100));
         Percentage3.setFont(new Font("Consolas", Font.BOLD,100));Percentage4.setFont(new Font("Consolas", Font.BOLD,100));
 
-        Percentage1.setBounds(270,100,250,250); Percentage2.setBounds(270,100,250,250);
-        Percentage3.setBounds(270,100,250,250); Percentage4.setBounds(270,100,250,250);
+        Percentage1.setBounds(185,50,250,250); Percentage2.setBounds(185,50,250,250);
+        Percentage3.setBounds(185,50,250,250); Percentage4.setBounds(185,50,250,250);
 
         PercentageContainer.add(Percentage1);PercentageContainer2.add(Percentage2);
         PercentageContainer3.add(Percentage3);PercentageContainer4.add(Percentage4);
@@ -318,15 +332,17 @@ public class DashBoard extends JFrame implements ActionListener {
 
     private ArrayList<Integer> SQLPercentage() {
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
+        final String DB_URL = "jdbc:mysql://localhost:3306/Inlog_Gegevens";
         final String USERNAME = "root";
-        final String PASSWORD = "Twinsz9";
+        final String PASSWORD = "Monkey123";
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
 
-            String sql = "SELECT Percentages FROM user_credentials.sensor_1 order by Measurement DESC;";
+            //String sql = "SELECT Percentages FROM user_credentials.sensor_1 order by Measurement DESC;";
+            String sql = "SELECT Percentages FROM Inlog_Gegevens.sensor_1 order by Measurement DESC;";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             ResultSet result = stmt.executeQuery();

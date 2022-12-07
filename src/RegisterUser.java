@@ -72,9 +72,10 @@ public class RegisterUser extends JFrame implements ActionListener {
 
         //hier de database aanpassen, vergeet niet de Tabellen ook aan te passen onder de SQL statement
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
+        final String DB_URL = "jdbc:mysql://localhost:3306/Inlog_Gegevens";
         final String USERNAME = "root";
-        final String PASSWORD = "Twinsz9";
+        final String PASSWORD = "Monkey123";
 
         Boolean voltooid = false;
 
@@ -84,7 +85,8 @@ public class RegisterUser extends JFrame implements ActionListener {
             // Connected to database successfully...
 
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO inlog_gegevens (Username,Password) Values ('" + registeredUsername + "','" + registeredPassword +"')";
+            //String sql = "INSERT INTO inlog_gegevens (Username,Password) Values ('" + registeredUsername + "','" + registeredPassword +"')";
+            String sql = "INSERT INTO Combinaties (UserName,Password) Values ('" + registeredUsername + "','" + registeredPassword +"')";
 
             stmt.executeUpdate(sql);
 
