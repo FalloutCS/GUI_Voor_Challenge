@@ -104,15 +104,19 @@ public class DashBoard extends JFrame implements ActionListener {
 
         InfoBox1 = new JPanel();InfoBox2 = new JPanel();InfoBox3 = new JPanel();InfoBox4 = new JPanel();
 
-        InfoBox1.setLayout(new BorderLayout()); InfoBox2.setLayout(new BorderLayout());
+        Graphs graphs = new Graphs();
+
+        InfoBox1.setLayout(new BorderLayout()); InfoBox2.setLayout(null);
         InfoBox3.setLayout(new BorderLayout()); InfoBox4.setLayout(new BorderLayout());
 
-        InfoBox1.setBackground(new Color(0xC4C4F1)); InfoBox2.setBackground(new Color(0xC4C4F1));
+        InfoBox1.setBackground(new Color(0xC4C4F1)); InfoBox2.setBackground(new Color(0x26154a));
         InfoBox3.setBackground(new Color(0xC4C4F1)); InfoBox4.setBackground(new Color(0xC4C4F1));
         InfoBox1.setVisible(false);InfoBox2.setVisible(false);
         InfoBox3.setVisible(false);InfoBox4.setVisible(false);
 
         DesignInfobox();
+        graphs.AddingPicture(InfoBox2);
+        graphs.AddingLineGraph(InfoBox3);
 
         InfoBoxDashboard.add(InfoBox1);
         InfoBoxDashboard.add(InfoBox2);
@@ -161,24 +165,20 @@ public class DashBoard extends JFrame implements ActionListener {
         HeaderDRIE.add(Header3); HeaderVIER.add(Header4);
         InfoBox1.add(HeaderEEN,BorderLayout.NORTH);
         InfoBox2.add(HeaderTWEE,BorderLayout.NORTH);
-        InfoBox3.add(HeaderDRIE,BorderLayout.NORTH);
+        //InfoBox3.add(HeaderDRIE,BorderLayout.NORTH);
         InfoBox4.add(HeaderVIER,BorderLayout.NORTH);
 
     }
 
     private void addingPercenteges() {
 
-        JPanel PercentageContainer = new JPanel();JPanel PercentageContainer2 = new JPanel();
-        JPanel PercentageContainer3 = new JPanel();JPanel PercentageContainer4 = new JPanel();
+        JPanel PercentageContainer = new JPanel();
 
-        PercentageContainer.setBackground(new Color(0x8B8BDC)); PercentageContainer2.setBackground(new Color(0x8B8BDC));
-        PercentageContainer3.setBackground(new Color(0x8B8BDC)); PercentageContainer4.setBackground(new Color(0x8B8BDC));
+        PercentageContainer.setBackground(new Color(0x8B8BDC));
 
-        PercentageContainer.setLayout(null);PercentageContainer2.setLayout(null);
-        PercentageContainer3.setLayout(null);PercentageContainer4.setLayout(null);
+        PercentageContainer.setLayout(null);
 
-        PercentageContainer.setPreferredSize(new Dimension(200,250));PercentageContainer2.setPreferredSize(new Dimension(200,250));
-        PercentageContainer3.setPreferredSize(new Dimension(200,250));PercentageContainer4.setPreferredSize(new Dimension(200,250));
+        PercentageContainer.setPreferredSize(new Dimension(100,250));
 
         Percentage1 = new JLabel(); Percentage2 = new JLabel();
         Percentage3 = new JLabel(); Percentage4 = new JLabel();
@@ -200,20 +200,15 @@ public class DashBoard extends JFrame implements ActionListener {
         PercentageKleur(percentage1,percentage2,percentage3,percentage4);
 
 
-        Percentage1.setText(percentage1+"%"); Percentage2.setText(percentage2+"%");
-        Percentage3.setText(percentage3+"%"); Percentage4.setText(percentage4+"%");
+        Percentage1.setText(percentage1+"%");
 
-        Percentage1.setFont(new Font("Consolas", Font.BOLD,100));Percentage2.setFont(new Font("Consolas", Font.BOLD,100));
-        Percentage3.setFont(new Font("Consolas", Font.BOLD,100));Percentage4.setFont(new Font("Consolas", Font.BOLD,100));
+        Percentage1.setFont(new Font("Consolas", Font.BOLD,100));
 
-        Percentage1.setBounds(185,50,250,250); Percentage2.setBounds(185,50,250,250);
-        Percentage3.setBounds(185,50,250,250); Percentage4.setBounds(185,50,250,250);
+        Percentage1.setBounds(190,100,250,250);
 
-        PercentageContainer.add(Percentage1);PercentageContainer2.add(Percentage2);
-        PercentageContainer3.add(Percentage3);PercentageContainer4.add(Percentage4);
+        PercentageContainer.add(Percentage1);
 
-        InfoBox1.add(PercentageContainer, BorderLayout.CENTER);InfoBox2.add(PercentageContainer2, BorderLayout.CENTER);
-        InfoBox3.add(PercentageContainer3, BorderLayout.CENTER);InfoBox4.add(PercentageContainer4, BorderLayout.CENTER);
+        InfoBox1.add(PercentageContainer, BorderLayout.CENTER);
 
         refreshKnop.setText("Request new DATA");
     }
@@ -332,17 +327,17 @@ public class DashBoard extends JFrame implements ActionListener {
 
     private ArrayList<Integer> SQLPercentage() {
 
-        //final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
-        final String DB_URL = "jdbc:mysql://localhost:3306/Inlog_Gegevens";
+        final String DB_URL = "jdbc:mysql://localhost:3306/user_credentials";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/Inlog_Gegevens";
         final String USERNAME = "root";
-        final String PASSWORD = "Monkey123";
+        final String PASSWORD = "Twinsz9";
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
 
-            //String sql = "SELECT Percentages FROM user_credentials.sensor_1 order by Measurement DESC;";
-            String sql = "SELECT Percentages FROM Inlog_Gegevens.sensor_1 order by Measurement DESC;";
+            String sql = "SELECT Percentages FROM user_credentials.sensor_1 order by Measurement DESC;";
+            //String sql = "SELECT Percentages FROM Inlog_Gegevens.sensor_1 order by Measurement DESC;";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             ResultSet result = stmt.executeQuery();

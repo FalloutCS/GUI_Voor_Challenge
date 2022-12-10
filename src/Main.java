@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
 
-        LoginPage loginPage = new LoginPage();
+        //LoginPage loginPage = new LoginPage();
 
-        //DashBoard dashBoard = new DashBoard();
+        DashBoard dashBoard = new DashBoard();
     }
 }
