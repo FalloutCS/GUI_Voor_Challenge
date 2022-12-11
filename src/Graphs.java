@@ -11,12 +11,22 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class Graphs extends JFrame implements ChangeListener {
 
     ImageIcon globe;
     JPanel picturePanel2;
     JSlider slider;
+    JPanel infopanel;
+    JLabel locatie;
+    JLabel locatie2;
+    JLabel locatie3;
+    DateTimeFormatter dtf;
+    LocalDateTime now;
 
     void AddingLineGraph(JPanel infoBox3){
 
@@ -55,7 +65,7 @@ public class Graphs extends JFrame implements ChangeListener {
         sliderPanel.setBounds(0,417,580,20);
         sliderPanel.setBackground(new Color(0x26154a));
 
-        slider = new JSlider(0,100,0);
+        slider = new JSlider(0,50,0);
         slider.setForeground(new Color(0x26154a));
         slider.setBackground(new Color(0x26154a));
         slider.setFocusable(false);
@@ -69,15 +79,69 @@ public class Graphs extends JFrame implements ChangeListener {
         picturePanel2.setOpaque(true);
         picturePanel2.setVisible(true);
 
+        AddingPicture2(infoBox2);
+
         infoBox2.add(sliderPanel);
         infoBox2.add(picturePanel2);
+
+    }
+
+    public void AddingPicture2(JPanel infoBox2){
+
+        infopanel = new JPanel();
+        infopanel.setBounds(0,0,250,415);
+        infopanel.setBackground(Color.RED);
+        infopanel.setVisible(false);
+        infopanel.setLayout(null);
+
+        locatie = new JLabel(); locatie2 = new JLabel(); locatie3 = new JLabel();
+
+        locatie.setBounds(10,10,250,13);
+        locatie2.setBounds(10,30,250,13);
+        locatie3.setBounds(10,50,250,13);
+
+        locatie.setText("De locatie van de boot is:");
+        locatie2.setText("X: 25 en Y: 67");
+        dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        now = LocalDateTime.now();
+
+        locatie3.setText("op " + dtf.format(now));
+
+        locatie.setFont(new Font("Consolas", Font.BOLD,13));
+        locatie2.setFont(new Font("Consolas", Font.BOLD,13));
+        locatie3.setFont(new Font("Consolas", Font.BOLD,13));
+        locatie.setVisible(false);
+        locatie2.setVisible(false);
+        locatie3.setVisible(false);
+
+        infopanel.add(locatie);
+        infopanel.add(locatie2);
+        infopanel.add(locatie3);
+
+
+        infoBox2.add(infopanel);
 
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
 
-        picturePanel2.setLocation(getX()+(slider.getValue()),-15);
+        picturePanel2.setLocation(getX()+(slider.getValue()*2),-15);
+
+        if(slider.getValue()>=25) {
+            infopanel.setVisible(true);
+            locatie.setVisible(true); locatie2.setVisible(true); locatie3.setVisible(true);
+
+            locatie.setForeground(new Color(255, 215, 140,slider.getValue()*2));
+            locatie2.setForeground(new Color(255, 215, 140,slider.getValue()*2));
+            locatie3.setForeground(new Color(255, 215, 140,slider.getValue()*2));
+
+            infopanel.setBackground(new Color(38,21,74,slider.getValue()*2-10));
+        }
+        if(slider.getValue()<=25) {
+            infopanel.setVisible(false);
+            locatie3.setText("op " + java.time.LocalDate.now());
+        }
 
 
 
