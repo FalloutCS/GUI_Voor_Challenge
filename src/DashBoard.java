@@ -107,7 +107,7 @@ public class DashBoard extends JFrame implements ActionListener {
         Graphs graphs = new Graphs();
 
         InfoBox1.setLayout(new BorderLayout()); InfoBox2.setLayout(null);
-        InfoBox3.setLayout(new BorderLayout()); InfoBox4.setLayout(new BorderLayout());
+        InfoBox3.setLayout(new BorderLayout()); InfoBox4.setLayout(new GridLayout(2,2,10,10));
 
         InfoBox1.setBackground(new Color(0xC4C4F1)); InfoBox2.setBackground(new Color(0x26154a));
         InfoBox3.setBackground(new Color(0xC4C4F1)); InfoBox4.setBackground(new Color(0xC4C4F1));
@@ -117,6 +117,7 @@ public class DashBoard extends JFrame implements ActionListener {
         DesignInfobox();
         graphs.AddingPicture(InfoBox2);
         graphs.AddingLineGraph(InfoBox3);
+        graphs.AddingRobotInfo(InfoBox4);
 
         InfoBoxDashboard.add(InfoBox1);
         InfoBoxDashboard.add(InfoBox2);
@@ -125,48 +126,19 @@ public class DashBoard extends JFrame implements ActionListener {
     }
 
     private void DesignInfobox() {
-        JPanel HeaderEEN = new JPanel(); JPanel HeaderTWEE = new JPanel();
-        JPanel HeaderDRIE = new JPanel(); JPanel HeaderVIER = new JPanel();
-
+        JPanel HeaderEEN = new JPanel();
         HeaderEEN.setPreferredSize(new Dimension(100,40));
-        HeaderTWEE.setPreferredSize(new Dimension(100,40));
-        HeaderDRIE.setPreferredSize(new Dimension(100,40));
-        HeaderVIER.setPreferredSize(new Dimension(100,40));
-
         HeaderEEN.setBackground(new Color(0xA6A6EF));
-        HeaderTWEE.setBackground(new Color(0xA6A6EF));
-        HeaderDRIE.setBackground(new Color(0xA6A6EF));
-        HeaderVIER.setBackground(new Color(0xA6A6EF));
 
         JLabel Header1 = new JLabel();
-        JLabel Header2 = new JLabel();
-        JLabel Header3 = new JLabel();
-        JLabel Header4 = new JLabel();
-
         Header1.setText("De waarde van Sensor ... is momenteel:");
         Header1.setForeground(new Color(0x595962));
         Header1.setFont(new Font("Consolas", Font.BOLD,20));
 
-        Header2.setText("De waarde van Sensor ... is momenteel:");
-        Header2.setForeground(new Color(0x595962));
-        Header2.setFont(new Font("Consolas", Font.BOLD,20));
-
-        Header3.setText("De waarde van Sensor ... is momenteel:");
-        Header3.setForeground(new Color(0x595962));
-        Header3.setFont(new Font("Consolas", Font.BOLD,20));
-
-        Header4.setText("De waarde van Sensor ... is momenteel:");
-        Header4.setForeground(new Color(0x595962));
-        Header4.setFont(new Font("Consolas", Font.BOLD,20));
-
         addingPercenteges();
+        HeaderEEN.add(Header1);
 
-        HeaderEEN.add(Header1); HeaderTWEE.add(Header2);
-        HeaderDRIE.add(Header3); HeaderVIER.add(Header4);
         InfoBox1.add(HeaderEEN,BorderLayout.NORTH);
-        InfoBox2.add(HeaderTWEE,BorderLayout.NORTH);
-        //InfoBox3.add(HeaderDRIE,BorderLayout.NORTH);
-        InfoBox4.add(HeaderVIER,BorderLayout.NORTH);
 
     }
 

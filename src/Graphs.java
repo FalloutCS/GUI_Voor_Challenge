@@ -1,9 +1,12 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 
@@ -21,12 +24,15 @@ public class Graphs extends JFrame implements ChangeListener {
     ImageIcon globe;
     JPanel picturePanel2;
     JSlider slider;
+    JPanel graph1;
     JPanel infopanel;
     JLabel locatie;
     JLabel locatie2;
     JLabel locatie3;
     DateTimeFormatter dtf;
     LocalDateTime now;
+
+    String x;
 
     void AddingLineGraph(JPanel infoBox3){
 
@@ -142,8 +148,90 @@ public class Graphs extends JFrame implements ChangeListener {
             infopanel.setVisible(false);
             locatie3.setText("op " + java.time.LocalDate.now());
         }
+    }
 
+    public void AddingRobotInfo(JPanel infoBox4) {
+
+        graph1 = new JPanel();
+        JPanel OnlineStatus = new JPanel();
+        JPanel CameraAngle =  new JPanel();
+        JPanel BatteryStatus = new JPanel();
+        OnlineStatus.setLayout(null);
+
+        JLabel InfoText =  new JLabel();
+        JLabel InfoText2 =  new JLabel();
+        JLabel InfoText3 =  new JLabel();
+        JLabel InfoText4 =  new JLabel();
+        JLabel InfoText5 =  new JLabel();
+
+        InfoText.setText("RobotName: DA_FUTURE"); InfoText2.setText("Online status: ONLINE");
+        InfoText3.setText("Up time: " + x);
+        //adding a timer to x
+        InfoText4.setText("Measurements this session: " + x);
+        //add a counter
+        InfoText5.setText("<... ");
+
+
+        InfoText.setFont(new Font("Consolas", Font.BOLD,13)); InfoText2.setFont(new Font("Consolas", Font.BOLD,13));
+        InfoText3.setFont(new Font("Consolas", Font.BOLD,13)); InfoText4.setFont(new Font("Consolas", Font.BOLD,13));
+        InfoText5.setFont(new Font("Consolas", Font.BOLD,13));
+
+        InfoText.setForeground(new Color(255, 215, 140));InfoText2.setForeground(new Color(255, 215, 140));
+        InfoText3.setForeground(new Color(255, 215, 140));InfoText4.setForeground(new Color(255, 215, 140));
+        InfoText5.setForeground(new Color(255, 215, 140));
+
+        InfoText.setBounds(10,10,250,13);InfoText2.setBounds(10,30,250,13);
+        InfoText3.setBounds(10,50,250,13);InfoText4.setBounds(10,70,250,13);
+        InfoText5.setBounds(10,90,250,13);
+
+        OnlineStatus.setBackground(new Color(0x26154a));
+        OnlineStatus.add(InfoText);
+        OnlineStatus.add(InfoText2);
+        OnlineStatus.add(InfoText3);
+        OnlineStatus.add(InfoText4);
+        OnlineStatus.add(InfoText5);
+
+
+
+        showLineChart();
+        infoBox4.add(graph1);
+        infoBox4.add(OnlineStatus);
+        infoBox4.add(CameraAngle);
+        infoBox4.add(BatteryStatus);
 
 
     }
+
+    public void showLineChart(){
+        //create dataset for the graph
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(200, "Amount", "january");
+        dataset.setValue(150, "Amount", "february");
+        dataset.setValue(18, "Amount", "march");
+        dataset.setValue(100, "Amount", "april");
+        dataset.setValue(80, "Amount", "may");
+        dataset.setValue(250, "Amount", "june");
+
+        //create chart
+        JFreeChart linechart = ChartFactory.createLineChart("contribution","monthly","amount",
+                dataset, PlotOrientation.VERTICAL, false,true,false);
+
+        //create plot object
+        CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
+        // lineCategoryPlot.setRangeGridlinePaint(Color.BLUE);
+        lineCategoryPlot.setBackgroundPaint(Color.white);
+
+        //create render object to change the moficy the line properties like color
+        LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
+        Color lineChartColor = new Color(204,0,51);
+        lineRenderer.setSeriesPaint(0, lineChartColor);
+
+        //create chartPanel to display chart(graph)
+        ChartPanel lineChartPanel = new ChartPanel(linechart);
+        lineChartPanel.setSize(100,100);
+        graph1.removeAll();
+        graph1.add(lineChartPanel, BorderLayout.CENTER);
+        graph1.validate();
+    }
+
 }
